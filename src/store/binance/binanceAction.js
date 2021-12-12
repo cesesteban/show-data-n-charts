@@ -1,16 +1,7 @@
-import axios from "axios";
+import binance from "../../config/binance"
+export const GET_ALL_TICKERS = "GET_ALL_TICKERS"
 
-export const GET_DATA = "GET_DATA";
-
-//GET DATA
-const Url = ``;
-export const getDataBinance = () => (dispatch) => {
-  axios
-    .get(`${Url}`)
-    .then((res) => {
-      dispatch({ type: GET_DATA, payload: res.data });
-    })
-    .catch((err) => {
-      dispatch({ type: GET_DATA, payload: err });
-    });
-};
+export const getAllTickers = () => async (dispatch) => {
+ const tickers = await binance.prices()
+ dispatch({ type: "GET_ALL_TICKERS", payload: tickers })
+}
