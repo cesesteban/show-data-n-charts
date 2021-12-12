@@ -1,7 +1,8 @@
-import { GET_ALL_TICKERS } from "./binanceAction"
+import { GET_ALL_TICKERS, GET_ALL_FUTURES } from "./binanceAction"
 
 const initialState = {
  allTickers: [],
+ allFutures: [],
 }
 
 const binanceReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const binanceReducer = (state = initialState, action) => {
    return {
     ...state,
     allTickers: action.payload,
+   }
+  case GET_ALL_FUTURES:
+   return {
+    ...state,
+    allFutures: action.payload,
    }
   default:
    return state
