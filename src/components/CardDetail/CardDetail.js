@@ -11,7 +11,9 @@ function CardDetail({ value, index }) {
   return (
     <>
       <Grid key={index} item>
-        <Paper className={styles.paper} onClick={handleOpen}></Paper>
+        <Paper className={styles.paper} onClick={handleOpen}>
+          <h1>{value}</h1>
+        </Paper>
       </Grid>
       <Modal open={open} onClose={handleClose}>
         <Paper className={styles.paperModal}></Paper>
