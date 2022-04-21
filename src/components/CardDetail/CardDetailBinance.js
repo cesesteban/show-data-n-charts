@@ -34,7 +34,7 @@ function CardDetailBinance({ value, index }) {
       { method: "GET" }
     );
     data = await data.json();
-    console.log(data);
+    //console.log(data);
     // setHistorySpot(data);
   };
 
@@ -48,12 +48,12 @@ function CardDetailBinance({ value, index }) {
       }
     );
     data = await data.json();
-    console.log(data);
+    //console.log(data);
     // setHistoryCoin(data);
   };
   useMemo(() => {
     if (spot && coin) {
-      console.log("HISTORY");
+      // console.log("HISTORY");
       getCoinHistory();
       getSpotHistory();
     }
