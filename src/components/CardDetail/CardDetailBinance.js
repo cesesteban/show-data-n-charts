@@ -13,8 +13,8 @@ function CardDetailBinance({ value, index }) {
   var start = moment().format("YYYY-MM-DD");
   var end = moment("2022-06-24");
 
-  const spot = SpotStreaming(value);
-  const coin = CoinStreaming(value);
+  const spot = SpotStreaming(value.spot);
+  const coin = CoinStreaming(value.coin);
   const implicit = ImplicitHook(start, end, spot, coin);
 
   const [historySpot, setHistorySpot] = useState();
@@ -29,20 +29,18 @@ function CardDetailBinance({ value, index }) {
   const handleClose = () => setOpen(false);
 
   const getSpotHistory = async () => {
-    const data = await fetch(
-      `https://api.binance.com/api/v1/klines?symbol=${value.toUpperCase()}&limit=500&interval=15m`,
+    let data = await fetch(
+      `https://api.binance.com/api/v1/klines?symbol=${value.spot.toUpperCase()}&limit=500&interval=15m`,
       { method: "GET" }
     );
     data = await data.json();
     //console.log(data);
-    // setHistorySpot(data);
+    //setHistorySpot(data);
   };
 
   const getCoinHistory = async () => {
     let data = await fetch(
-      `https://dapi.binance.com/dapi/v1/klines?symbol=${value
-        .toLowerCase()
-        .slice(0, -1)}_220624&interval=15m`,
+      `https://dapi.binance.com/dapi/v1/klines?symbol=${value.coin.toLowerCase()}&interval=15m`,
       {
         method: "GET",
       }
@@ -52,10 +50,12 @@ function CardDetailBinance({ value, index }) {
     // setHistoryCoin(data);
   };
   useMemo(() => {
+    // console.log("coin", coin);
+    // console.log("spot", spot);
     if (spot && coin) {
-      // console.log("HISTORY");
-      getCoinHistory();
-      getSpotHistory();
+      //console.log("HISTORY");
+      //getCoinHistory();
+      //getSpotHistory();
     }
   }, [spot, coin]);
 
@@ -64,7 +64,7 @@ function CardDetailBinance({ value, index }) {
       <Grid key={index} item>
         {spot && coin && (
           <Paper className={styles.paper}>
-            <h1 onClick={() => handleOpen()}>{value}</h1>
+            <h1 onClick={() => handleOpen()}>{value.coin}</h1>
             {""}
             <h1>{Number.parseFloat(spot).toPrecision(8)}</h1>
             {""}

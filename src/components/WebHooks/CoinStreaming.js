@@ -12,15 +12,15 @@ function CoinStreaming(ticker) {
   const connectTicker = () => {
     sendJsonMessage({
       method: "SUBSCRIBE",
-      params: [`${ticker.toLowerCase().slice(0, -1)}_220624@ticker`],
+      params: [`${ticker.toLowerCase()}@ticker`],
+      // params: [`${ticker.toLowerCase().slice(0, -1)}_220624@ticker`],
       id: 1,
     });
   };
 
-  // console.log(
-  //   lastJsonMessage && lastJsonMessage.data && lastJsonMessage.data.c
-  // );
   useMemo(() => {
+    console.log(ticker);
+    console.log(lastJsonMessage);
     setCoin(lastJsonMessage && lastJsonMessage.data && lastJsonMessage.data.c);
   }, [lastJsonMessage]);
   useEffect(() => {
