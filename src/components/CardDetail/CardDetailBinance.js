@@ -11,7 +11,16 @@ import HistoryHook from "../WebHooks/HistoryHook";
 
 function CardDetailBinance({ value, index }) {
   var start = moment().format("YYYY-MM-DD");
-  var end = moment("2022-06-24");
+  var end =
+    value.coin.split("_")[1] &&
+    moment(
+      "20" +
+        value.coin.split("_")[1].slice(0, 2) +
+        "-" +
+        value.coin.split("_")[1].slice(2, 4) +
+        "-" +
+        value.coin.split("_")[1].slice(4, 6)
+    );
 
   const spot = SpotStreaming(value.spot);
   const coin = CoinStreaming(value.coin);
