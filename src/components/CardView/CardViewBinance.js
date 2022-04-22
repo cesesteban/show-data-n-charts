@@ -11,28 +11,16 @@ function CardViewBinance() {
       method: "GET",
     });
     data = await data.json();
-    let tickers = data && data.filter((pair) => pair.symbol.includes("0"));
-    //tickers = tickers.map((ticker) => ticker.pair + "T");
-    tickers = tickers.map((ticker) => {
-      return { spot: ticker.pair + "T", coin: ticker.symbol };
+    data = data.filter((pair) => pair.symbol.includes("0"));
+    data = data.map((data) => data.symbol);
+    data = data.sort();
+    data = data.map((pair) => {
+      return { coin: pair, spot: pair.split("_")[0] + "T" };
     });
-    setTickers(tickers);
+    setTickers(data);
   };
 
-  //const getTickers = async () => {
-  // let tickers = await fetch("https://api.binance.com/api/v3/exchangeInfo", {
-  //   method: "GET",
-  // });
-  // tickers = await tickers.json();
-  // tickers = tickers.symbols.filter(
-  //   (symbol) => symbol.symbol && symbol.symbol.includes("USDT")
-  // );
-  // tickers = tickers.map((symbol) => symbol.symbol);
-  //setTickers(TICKERS);
-  //};
-
   useEffect(() => {
-    //getTickers();
     getPremiumIndex();
   }, []);
 

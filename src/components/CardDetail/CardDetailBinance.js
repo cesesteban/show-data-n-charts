@@ -59,8 +59,6 @@ function CardDetailBinance({ value, index }) {
     // setHistoryCoin(data);
   };
   useMemo(() => {
-    // console.log("coin", coin);
-    // console.log("spot", spot);
     if (spot && coin) {
       //console.log("HISTORY");
       //getCoinHistory();
@@ -71,19 +69,21 @@ function CardDetailBinance({ value, index }) {
   return (
     <>
       <Grid key={index} item>
-        {spot && coin && (
-          <Paper className={styles.paper}>
-            <h1 onClick={() => handleOpen()}>{value.coin}</h1>
+        {
+          <Paper onClick={() => handleOpen()} className={styles.paper}>
+            <h1>{value.coin}</h1>
             {""}
-            <h1>{Number.parseFloat(spot).toPrecision(8)}</h1>
+            <h1>Days {end && end.diff(start, "days")}</h1>
             {""}
-            {coin && <h1>{coin}</h1>}
+            <h1>Spot {spot && Number.parseFloat(spot).toFixed(3)}</h1>
+            {""}
+            {coin && <h1>Fut {coin}</h1>}
             {""}
             {coin && implicit !== undefined && (
-              <h1>%{Number.parseFloat(implicit).toFixed(3)}</h1>
+              <h1>TNA% {Number.parseFloat(implicit).toFixed(3)}</h1>
             )}
           </Paper>
-        )}
+        }
       </Grid>
       <Modal open={open} onClose={handleClose}>
         <Paper className={styles.paperModal}></Paper>

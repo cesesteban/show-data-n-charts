@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
-import moment from "moment";
+import { useState, useEffect } from "react";
 
 function ImplicitHook(start, end, spot, coin) {
   const [implicit, setImplicit] = useState();
