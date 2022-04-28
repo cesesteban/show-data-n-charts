@@ -8,19 +8,13 @@ import CoinStreaming from "../WebHooks/CoinStreaming";
 import moment from "moment";
 import ImplicitHook from "../WebHooks/ImplicitHook";
 import HistoryHook from "../WebHooks/HistoryHook";
+import { setEndTime } from "../../utils/setEndTime";
+import Chart from "../Chart";
+import ImplicitHookArray from "../WebHooks/ImplicitHookArray";
 
 function CardDetailBinance({ value, index }) {
   var start = moment().format("YYYY-MM-DD");
-  var end =
-    value.coin.split("_")[1] &&
-    moment(
-      "20" +
-        value.coin.split("_")[1].slice(0, 2) +
-        "-" +
-        value.coin.split("_")[1].slice(2, 4) +
-        "-" +
-        value.coin.split("_")[1].slice(4, 6)
-    );
+  var end = setEndTime(value);
 
   const spot = SpotStreaming(value.spot);
   const coin = CoinStreaming(value.coin);
@@ -28,11 +22,10 @@ function CardDetailBinance({ value, index }) {
 
   const [historySpot, setHistorySpot] = useState();
   const [historyCoin, setHistoryCoin] = useState();
-  const [historyImplicit, setHistoryImplicit] = useState();
+  // const [historyImplicit, setHistoryImplicit] = useState();
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
-    console.log("handleOpen");
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
@@ -43,8 +36,7 @@ function CardDetailBinance({ value, index }) {
       { method: "GET" }
     );
     data = await data.json();
-    //console.log(data);
-    //setHistorySpot(data);
+    setHistorySpot(data);
   };
 
   const getCoinHistory = async () => {
@@ -55,16 +47,23 @@ function CardDetailBinance({ value, index }) {
       }
     );
     data = await data.json();
-    //console.log(data);
-    // setHistoryCoin(data);
+    setHistoryCoin(data);
   };
   useMemo(() => {
     if (spot && coin) {
-      //console.log("HISTORY");
-      //getCoinHistory();
-      //getSpotHistory();
+      getCoinHistory();
+      getSpotHistory();
     }
   }, [spot, coin]);
+
+  // const historyImplicit = ImplicitHookArray(
+  //   start,
+  //   end,
+  //   historySpot,
+  //   historyCoin
+  // );
+
+  // console.log(historyImplicit);
 
   return (
     <>
@@ -86,7 +85,9 @@ function CardDetailBinance({ value, index }) {
         }
       </Grid>
       <Modal open={open} onClose={handleClose}>
-        <Paper className={styles.paperModal}></Paper>
+        <Paper className={styles.paperModal}>
+          <Chart coinHistory={historyCoin} spotHistory={historySpot} />
+        </Paper>
       </Modal>
     </>
   );
