@@ -1,6 +1,7 @@
 .paper {
   height: 300px;
   width: 300px;
+  cursor: pointer;
 }
 .paperModal {
   position: absolute;
