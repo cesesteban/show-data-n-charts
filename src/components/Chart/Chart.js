@@ -45,14 +45,6 @@ function Chart({ coinHistory, spotHistory }) {
     labels,
     datasets: [
       {
-        label: "Fut",
-        data:
-          coinHistory && coinHistory[0] && coinHistory.map((coin) => coin[4]),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        fill: true,
-      },
-      {
         label: "Spot",
         data:
           spotHistory && spotHistory[0] && spotHistory.map((coin) => coin[4]),
@@ -60,6 +52,15 @@ function Chart({ coinHistory, spotHistory }) {
         backgroundColor: "rgba(53, 162, 235, 0.5)",
         fill: false,
       },
+      {
+        label: "Fut",
+        data:
+          coinHistory && coinHistory[0] && coinHistory.map((coin) => coin[4]),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        fill: true,
+      },
+
       // {
       //   label: "Implicit rate",
       //   data:

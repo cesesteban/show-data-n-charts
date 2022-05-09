@@ -1,0 +1,8 @@
+.display {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.centerLine {
+  margin-top: 6px;
+}

@@ -12,7 +12,7 @@ import { setEndTime } from "../../utils/setEndTime";
 import Chart from "../Chart";
 import ImplicitHookArray from "../WebHooks/ImplicitHookArray";
 
-function CardDetailBinance({ value, index }) {
+function CardDetailBinance({ dark, value, index }) {
   var start = moment().format("YYYY-MM-DD");
   var end = setEndTime(value);
 
@@ -69,17 +69,33 @@ function CardDetailBinance({ value, index }) {
     <>
       <Grid key={index} item>
         {
-          <Paper onClick={() => handleOpen()} className={styles.paper}>
-            <h1>{value.coin}</h1>
+          <Paper
+            style={{ backgroundColor: dark ? "#313131" : "#ffffff" }}
+            onClick={() => handleOpen()}
+            className={styles.paper}
+          >
+            <h1 className={dark ? styles.dataDark : styles.dataLigth}>
+              {value.coin}
+            </h1>
             {""}
-            <h1>Days {end && end.diff(start, "days")}</h1>
+            <h1 className={dark ? styles.dataDark : styles.dataLigth}>
+              Days {end && end.diff(start, "days")}
+            </h1>
             {""}
-            <h1>Spot {spot && Number.parseFloat(spot).toFixed(3)}</h1>
+            <h1 className={dark ? styles.dataDark : styles.dataLigth}>
+              Spot {spot && Number.parseFloat(spot).toFixed(3)}
+            </h1>
             {""}
-            {coin && <h1>Fut {coin}</h1>}
+            {coin && (
+              <h1 className={dark ? styles.dataDark : styles.dataLigth}>
+                Fut {coin}
+              </h1>
+            )}
             {""}
             {coin && implicit !== undefined && (
-              <h1>TNA% {Number.parseFloat(implicit).toFixed(3)}</h1>
+              <h1 className={dark ? styles.dataDark : styles.dataLigth}>
+                TNA% {Number.parseFloat(implicit).toFixed(3)}
+              </h1>
             )}
           </Paper>
         }

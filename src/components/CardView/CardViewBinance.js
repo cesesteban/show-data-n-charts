@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import CardDetailBinance from "../CardDetail/CardDetailBinance";
 import styles from "./cardView.module.css";
 
-function CardViewBinance() {
+function CardViewBinance({ dark }) {
   const [tickers, setTickers] = useState();
 
   const getPremiumIndex = async () => {
@@ -31,7 +31,7 @@ function CardViewBinance() {
           {tickers &&
             tickers[0] &&
             tickers.map((value, index) => (
-              <CardDetailBinance value={value} index={index} />
+              <CardDetailBinance dark={dark} value={value} index={index} />
             ))}
         </Grid>
       </Grid>
